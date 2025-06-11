@@ -21,10 +21,12 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "src/assets",
+                "output": "/assets"
               }
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
             ]
           },
@@ -61,6 +63,9 @@
             "development": {
               "buildTarget": "clothes-client:build:development"
             }
+          },
+          "options": {
+            "allowedHosts": ["localhost","https://interactions-printing-democracy-mate.trycloudflare.com/"]
           },
           "defaultConfiguration": "development"
         },

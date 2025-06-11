@@ -1,0 +1,112 @@
+<!-- src/app/components/producto-lista/producto-lista.component.html -->
+
+<div class="producto-lista-container">
+  <h2>Lista de Productos</h2>
+
+  <!-- Loading spinner -->
+  @if (loading) {
+    <div class="loading">
+      <p>Cargando productos...</p>
+    </div>
+  }
+
+  <!-- Error message -->
+  @if (error) {
+    <div class="error-message">
+      <p>{{ error }}</p>
+      <button (click)="cargarProductos()">Reintentar</button>
+    </div>
+  }
+
+  <!-- Lista de productos -->
+  @if (!loading && !error) {
+    <div class="productos-grid">
+      @for (producto of productos; track producto.idProducto) {
+        <div class="producto-card">
+          
+          <!-- Imagen principal -->
+          <div class="producto-imagen">
+            <img 
+              [src]="producto.imagenUrlPrincipal" 
+              [alt]="producto.nombreProducto"
+              (error)="onImageError($event)"
+              class="imagen-principal">
+            
+            <div class="producto-status" [ngClass]="{'activo': producto.activo, 'inactivo': !producto.activo}">
+              {{ producto.activo ? 'Activo' : 'Inactivo' }}
+            </div>
+          </div>
+
+          <!-- Información del producto -->
+          <div class="producto-info">
+            <h3>{{ producto.nombreProducto }}</h3>
+            <p class="descripcion">{{ producto.descripcionProducto }}</p>
+            
+            <div class="precio-base">
+              <strong>Precio base: ${{ producto.precioBase }}</strong>
+            </div>
+
+            <!-- Información de categoría y proveedor -->
+            <div class="producto-detalles">
+              <div class="categoria">
+                <span class="label">Categoría:</span> {{ producto.categoria.nombreCategoria }}
+              </div>
+              <div class="proveedor">
+                <span class="label">Proveedor:</span> {{ producto.proveedor.nombreProveedor }}
+              </div>
+            </div>
+
+            <!-- Variaciones -->
+            @if (producto.variaciones && producto.variaciones.length > 0) {
+              <div class="variaciones">
+                <h4>Variaciones disponibles:</h4>
+                <div class="variaciones-lista">
+                  @for (variacion of producto.variaciones; track variacion.idVariacion) {
+                    <div class="variacion-item">
+                      <div class="variacion-imagen">
+                        <img 
+                          [src]="variacion.imagenUrlVariacion" 
+                          [alt]="variacion.color + ' - ' + variacion.talla"
+                          (error)="onImageError($event)"
+                          class="imagen-variacion">
+                      </div>
+                      <div class="variacion-detalles">
+                        <div class="variacion-info">
+                          <span class="color">{{ variacion.color }}</span> - 
+                          <span class="talla">{{ variacion.talla }}</span>
+                        </div>
+                        <div class="material">{{ variacion.nombreMaterial }}</div>
+                        <div class="precio-variacion">
+                          ${{ calcularPrecioConVariacion(producto, variacion) }}
+                        </div>
+                        <div class="stock" [ngClass]="{'stock-bajo': variacion.stockDisponible < 10}">
+                          Stock: {{ variacion.stockDisponible }}
+                        </div>
+                        <div class="sku">SKU: {{ variacion.sku }}</div>
+                      </div>
+                    </div>
+                  }
+                </div>
+              </div>
+            }
+
+            <!-- Fechas -->
+            <div class="fechas">
+              <small>
+                Creado: {{ producto.fechaCreacion | date:'short' }} |
+                Actualizado: {{ producto.fechaActualizacion | date:'short' }}
+              </small>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+
+  <!-- Mensaje cuando no hay productos -->
+  @if (!loading && !error && productos.length === 0) {
+    <div class="no-productos">
+      <p>No se encontraron productos.</p>
+    </div>
+  }
+</div>

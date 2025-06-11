@@ -1,0 +1,106 @@
+<!-- src/app/components/proveedor-form/proveedor-form.component.html -->
+
+<div class="proveedor-form-container">
+  <div class="form-section">
+    <h2>{{ editingProveedor ? 'Editar Proveedor' : 'Crear Nuevo Proveedor' }}</h2>
+
+    <!-- Mensajes de éxito y error -->
+    @if (success) {
+      <div class="success-message">
+        <p>{{ success }}</p>
+      </div>
+    }
+
+    @if (error) {
+      <div class="error-message">
+        <p>{{ error }}</p>
+      </div>
+    }
+
+    <!-- Formulario -->
+    <form [formGroup]="proveedorForm" (ngSubmit)="onSubmit()" class="proveedor-form">
+      
+      <!-- Campo Nombre -->
+      <div class="form-group">
+        <label for="nombreProveedor">Nombre del Proveedor *</label>
+        <input 
+          type="text" 
+          id="nombreProveedor"
+          formControlName="nombreProveedor"
+          [class.error]="isFieldInvalid('nombreProveedor')"
+          placeholder="Ingresa el nombre del proveedor">
+        
+        @if (isFieldInvalid('nombreProveedor')) {
+          <div class="field-error">
+            {{ getFieldError('nombreProveedor') }}
+          </div>
+        }
+      </div>
+
+      <!-- Botones -->
+      <div class="form-actions">
+        <button 
+          type="submit" 
+          [disabled]="loading || proveedorForm.invalid"
+          class="btn-primary">
+          @if (loading) {
+            Guardando...
+          } @else {
+            {{ editingProveedor ? 'Actualizar Proveedor' : 'Crear Proveedor' }}
+          }
+        </button>
+
+        @if (editingProveedor) {
+          <button 
+            type="button" 
+            (click)="cancelarEdicion()"
+            class="btn-secondary">
+            Cancelar
+          </button>
+        }
+      </div>
+    </form>
+  </div>
+
+  <!-- Lista de proveedores -->
+  <div class="list-section">
+    <h3>Proveedores Existentes</h3>
+    
+    @if (loading && proveedores.length === 0) {
+      <div class="loading">
+        <p>Cargando proveedores...</p>
+      </div>
+    }
+
+    @if (proveedores.length > 0) {
+      <div class="proveedores-list">
+        @for (proveedor of proveedores; track proveedor.idProveedor) {
+          <div class="proveedor-item">
+            <div class="proveedor-info">
+              <h4>{{ proveedor.nombreProveedor }}</h4>
+              <small>ID: {{ proveedor.idProveedor }}</small>
+            </div>
+            <div class="proveedor-actions">
+              <button 
+                (click)="editarProveedor(proveedor)"
+                class="btn-edit">
+                Editar
+              </button>
+              <button 
+                (click)="eliminarProveedor(proveedor)"
+                class="btn-delete">
+                Eliminar
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    }
+
+    @if (!loading && proveedores.length === 0) {
+      <div class="no-proveedores">
+        <p>No hay proveedores registrados.</p>
+      </div>
+    }
+  </div>
+</div>

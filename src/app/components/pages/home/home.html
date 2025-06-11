@@ -1,0 +1,93 @@
+<!-- Página Principal -->
+<div class="min-vh-100 bg-light d-flex flex-column">
+
+  <!-- Barra de Navegación -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold text-primary" routerLink="/">Mi Tienda</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNavbar">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/" routerLinkActive="active">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/dresses">Vestidos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/cosmetics">Cosméticos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/about">Sobre Nosotros</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link position-relative" routerLink="/cart">
+              <i class="bi bi-cart"></i>
+              <span class="visually-hidden">Carrito</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Carrusel -->
+  <section>
+    <div id="mainCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div *ngFor="let slide of slides; let i = index" class="carousel-item" [class.active]="currentSlide === i">
+          <img [src]="slide.image" [alt]="slide.alt" class="d-block w-100" style="height: 380px; object-fit: cover;">
+          <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-3">
+            <h2 class="h3 text-white fw-bold">{{slide.caption}}</h2>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" (click)="prevSlide()">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+      </button>
+      <button class="carousel-control-next" type="button" (click)="nextSlide()">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Siguiente</span>
+      </button>
+      <div class="carousel-indicators">
+        <button *ngFor="let slide of slides; let i = index"
+                type="button"
+                [class.active]="currentSlide === i"
+                (click)="goToSlide(i)"
+                [attr.aria-label]="'Ir al slide ' + (i + 1)">
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección de Productos -->
+  <section class="py-5 bg-light flex-grow-1">
+    <div class="container">
+      <h2 class="text-center fw-bold mb-4">Nuestros Productos</h2>
+      <div class="row g-4">
+        <div *ngFor="let product of products" class="col-12 col-sm-6 col-lg-3">
+          <div class="card h-100 shadow-sm">
+            <img [src]="product.image" [alt]="product.alt" class="card-img-top" style="height: 200px; object-fit: cover;">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">{{product.name}}</h5>
+              <p class="card-text text-primary fw-bold mb-2">${{product.price.toFixed(2)}}</p>
+              <button class="btn btn-pink mt-auto w-100" style="background:#e83e8c; color:white;">
+                Añadir al Carrito
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white py-4 mt-auto">
+    <div class="container text-center small">
+      &copy; 2025 Mi Tienda de Vestidos y Cosméticos. Todos los derechos reservados.
+    </div>
+  </footer>
+</div>

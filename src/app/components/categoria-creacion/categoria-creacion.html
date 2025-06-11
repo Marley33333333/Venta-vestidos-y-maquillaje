@@ -1,0 +1,125 @@
+<!-- src/app/components/categoria-form/categoria-form.component.html -->
+
+<div class="categoria-form-container">
+  <div class="form-section">
+    <h2>{{ editingCategoria ? 'Editar Categoría' : 'Crear Nueva Categoría' }}</h2>
+
+    <!-- Mensajes de éxito y error -->
+    @if (success) {
+      <div class="success-message">
+        <p>{{ success }}</p>
+      </div>
+    }
+
+    @if (error) {
+      <div class="error-message">
+        <p>{{ error }}</p>
+      </div>
+    }
+
+    <!-- Formulario -->
+    <form [formGroup]="categoriaForm" (ngSubmit)="onSubmit()" class="categoria-form">
+      
+      <!-- Campo Nombre -->
+      <div class="form-group">
+        <label for="nombreCategoria">Nombre de la Categoría *</label>
+        <input 
+          type="text" 
+          id="nombreCategoria"
+          formControlName="nombreCategoria"
+          [class.error]="isFieldInvalid('nombreCategoria')"
+          placeholder="Ingresa el nombre de la categoría">
+        
+        @if (isFieldInvalid('nombreCategoria')) {
+          <div class="field-error">
+            {{ getFieldError('nombreCategoria') }}
+          </div>
+        }
+      </div>
+
+      <!-- Campo Descripción -->
+      <div class="form-group">
+        <label for="descripcionCategoria">Descripción *</label>
+        <textarea 
+          id="descripcionCategoria"
+          formControlName="descripcionCategoria"
+          [class.error]="isFieldInvalid('descripcionCategoria')"
+          placeholder="Describe la categoría"
+          rows="4">
+        </textarea>
+        
+        @if (isFieldInvalid('descripcionCategoria')) {
+          <div class="field-error">
+            {{ getFieldError('descripcionCategoria') }}
+          </div>
+        }
+      </div>
+
+      <!-- Botones -->
+      <div class="form-actions">
+        <button 
+          type="submit" 
+          [disabled]="loading || categoriaForm.invalid"
+          class="btn-primary">
+          @if (loading) {
+            Guardando...
+          } @else {
+            {{ editingCategoria ? 'Actualizar Categoría' : 'Crear Categoría' }}
+          }
+        </button>
+
+        @if (editingCategoria) {
+          <button 
+            type="button" 
+            (click)="cancelarEdicion()"
+            class="btn-secondary">
+            Cancelar
+          </button>
+        }
+      </div>
+    </form>
+  </div>
+
+  <!-- Lista de categorías -->
+  <div class="list-section">
+    <h3>Categorías Existentes</h3>
+    
+    @if (loading && categorias.length === 0) {
+      <div class="loading">
+        <p>Cargando categorías...</p>
+      </div>
+    }
+
+    @if (categorias.length > 0) {
+      <div class="categorias-list">
+        @for (categoria of categorias; track categoria.idCategoria) {
+          <div class="categoria-item">
+            <div class="categoria-info">
+              <h4>{{ categoria.nombreCategoria }}</h4>
+              <p>{{ categoria.descripcionCategoria }}</p>
+              <small>ID: {{ categoria.idCategoria }}</small>
+            </div>
+            <div class="categoria-actions">
+              <button 
+                (click)="editarCategoria(categoria)"
+                class="btn-edit">
+                Editar
+              </button>
+              <button 
+                (click)="eliminarCategoria(categoria)"
+                class="btn-delete">
+                Eliminar
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    }
+
+    @if (!loading && categorias.length === 0) {
+      <div class="no-categorias">
+        <p>No hay categorías registradas.</p>
+      </div>
+    }
+  </div>
+</div>
