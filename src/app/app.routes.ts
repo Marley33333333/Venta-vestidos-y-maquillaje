@@ -8,9 +8,9 @@ import { Home } from './components/pages/home/home';
 export const routes: Routes = [
   { path: 'home', component: Home },
   { path: 'productos', component: ProductoListaComponent },
-  {path: 'productos/crear', component: ProductoCreacion }, // Ruta para crear un nuevo producto
-  {path: 'productos/:id', component: ProductoListaComponent }, // Ruta para ver un producto específico
-  {path: 'categorias', component: CategoriaCreacion }, // Ruta para ver todas las categorías
-  {path: 'proveedores', component: ProveedorCreacion }, // Ruta para ver todas los proveedores
-  { path: '**', redirectTo: '/home' } // Wildcard route para páginas no encontradas
+  { path: 'productos/crear', component: ProductoCreacion }, // Ruta para crear un nuevo producto
+  { path: 'productos/:id', component: ProductoListaComponent }, // Ruta para ver un producto específico
+  { path: 'categorias', component: CategoriaCreacion }, // Ruta para ver todas las categorías
+  { path: 'proveedores', component: ProveedorCreacion }, // Ruta para ver todas los proveedores
+  { path: '', redirectTo: '/home', pathMatch: 'full' } // Wildcard route para páginas no encontradas
 ];
