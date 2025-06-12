@@ -10,7 +10,7 @@ import { inject } from '@angular/core';
 export class CategoriaService {
 
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = 'http://localhost:8080/api/v1/categorias'; // Cambia por la URL de tu API
+  private readonly apiUrl = 'https://may-button-xi-investment.trycloudflare.com/api/v1/categorias'; // Cambia por la URL de tu API
 
   // Obtener todas las categorías
   getCategorias(): Observable<Categoria[]> {
