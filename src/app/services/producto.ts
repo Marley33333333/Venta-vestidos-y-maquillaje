@@ -9,7 +9,7 @@ import { ProductoRequest } from '../models/productorequest.interface'; // Asegú
 })
 export class ProductoService {
   
-  private apiUrl = 'https://may-button-xi-investment.trycloudflare.com/api/v1/productos'; // Cambia por la URL de tu API
+  private apiUrl = 'https://leu-arrested-deputy-ins.trycloudflare.com/api/v1/productos'; // Cambia por la URL de tu API
 
   constructor(private http: HttpClient) { }
 
