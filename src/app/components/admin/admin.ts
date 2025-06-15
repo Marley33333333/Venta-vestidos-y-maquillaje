@@ -30,7 +30,7 @@ export class Admin {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    this.http.get('http://localhost:8080/api/v1/auth/admin/users', { headers }).subscribe({
+    this.http.get('https://tent-california-consumer-and.trycloudflare.com/api/v1/auth/admin/users', { headers }).subscribe({
       next: (data: any) => this.users = data,
       error: () => console.error('Failed to fetch users')
     });

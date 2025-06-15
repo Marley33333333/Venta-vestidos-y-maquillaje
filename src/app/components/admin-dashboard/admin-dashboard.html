@@ -1,1 +1,51 @@
-<p>admin-dashboard works!</p>
+<div class="container py-5">
+  <h2 class="text-center fw-bold mb-4 text-primary">Panel de Administración</h2>
+
+  <!-- Management Cards -->
+  <div class="row g-4 mb-5">
+    <div class="col-md-4">
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-body text-center">
+          <i class="bi bi-box-seam fs-2 text-primary mb-3"></i>
+          <h5 class="card-title">Gestionar Productos</h5>
+          <p class="card-text">Crear, editar o eliminar productos en la tienda.</p>
+          <a routerLink="/productos/crear" class="btn btn-primary mt-auto">Crear Producto</a>
+          <a routerLink="/productos" class="btn btn-outline-primary mt-2">Ver Productos</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-body text-center">
+          <i class="bi bi-tags fs-2 text-primary mb-3"></i>
+          <h5 class="card-title">Gestionar Categorías</h5>
+          <p class="card-text">Administrar categorías para organizar productos.</p>
+          <a routerLink="/categorias/crear" class="btn btn-primary mt-auto">Crear Categoría</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-body text-center">
+          <i class="bi bi-truck fs-2 text-primary mb-3"></i>
+          <h5 class="card-title">Gestionar Proveedores</h5>
+          <p class="card-text">Añadir o modificar proveedores de la tienda.</p>
+          <a routerLink="/proveedores/crear" class="btn btn-primary mt-auto">Crear Proveedor</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Payment Chart -->
+  <div class="card shadow-sm border-0">
+    <div class="card-body">
+      <h5 class="card-title text-center mb-4">Estadísticas de Pagos</h5>
+      <div style="position: relative; height: 400px; width: 100%;">
+        <canvas baseChart
+                [data]="barChartData"
+                [options]="barChartOptions"
+                type="bar"></canvas>
+      </div>
+    </div>
+  </div>
+</div>

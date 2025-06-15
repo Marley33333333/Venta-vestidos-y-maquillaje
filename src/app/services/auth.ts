@@ -9,7 +9,7 @@ import { tap } from 'rxjs/operators';
 })
 export class AuthService {
 
-  private apiUrl = 'http://localhost:8080/api/v1/auth';
+  private apiUrl = 'https://tent-california-consumer-and.trycloudflare.com/api/v1';
   private userSubject = new BehaviorSubject<User | null>(null);
   user$ = this.userSubject.asObservable();
 
@@ -21,7 +21,7 @@ export class AuthService {
   }
 
   login(credentials: { email: string; password: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
+    return this.http.post(`${this.apiUrl}/auth/login`, credentials).pipe(
       tap((response: any) => {
         localStorage.setItem('token', response.token);
         this.userSubject.next(response.user);
@@ -30,7 +30,7 @@ export class AuthService {
   }
 
   register(user: { username: string; email: string; password: string; first_name?: string; last_name?: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register`, user).pipe(
+    return this.http.post(`${this.apiUrl}/auth/register`, user).pipe(
       tap(() => this.userSubject.next(null))
     );
   }
@@ -53,6 +53,7 @@ export class AuthService {
       const decoded = JSON.parse(atob(token.split('.')[1]));
       this.userSubject.next({ id: decoded.id, username: decoded.sub, email: decoded.sub, role: decoded.role });
     } catch (e) {
+      console.error('Failed to decode JWT:', e)
       this.logout();
     }
   }

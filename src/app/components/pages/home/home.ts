@@ -16,17 +16,17 @@ export class Home implements OnInit{
  // Datos del carrusel
   slides = [
     {
-      image: 'https://i.ibb.co/yFYL3WMF/slider-1.png',
+      image: 'https://images.pexels.com/photos/5625130/pexels-photo-5625130.jpeg',
       alt: 'Promoción de vestidos',
       caption: '¡Vestidos con hasta 50% de descuento!'
     },
     {
-      image: 'https://i.ibb.co/6JPKFxNv/slider-2.png',
+      image: 'https://images.pexels.com/photos/3018845/pexels-photo-3018845.jpeg',
       alt: 'Nueva línea de cosméticos',
       caption: 'Descubre nuestra nueva línea de cosméticos'
     },
     {
-      image: 'https://i.ibb.co/Hpkt4Mpm/slider-3.png',
+      image: 'https://images.pexels.com/photos/5632402/pexels-photo-5632402.jpeg',
       alt: 'Envío gratis',
       caption: 'Envío gratis en compras superiores a $50'
     }
