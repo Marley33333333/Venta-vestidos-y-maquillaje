@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule, CurrencyPipe } from '@angular/common';
+import { ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 
 
 @Component({
@@ -18,8 +19,29 @@ import { CommonModule, CurrencyPipe } from '@angular/common';
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit{
   title = 'mi-tienda-productos';
+
+  isMusicPlaying = true;
+  @ViewChild('audioPlayer') audioPlayer!: ElementRef<HTMLAudioElement>;
+
+  ngAfterViewInit() {
+    // Try to autoplay when the page loads
+    this.audioPlayer.nativeElement.play().catch(() => {
+      this.isMusicPlaying = false;
+    });
+  }
+  
+  toggleMusic() {
+    if (this.isMusicPlaying) {
+      this.audioPlayer.nativeElement.pause();
+    } else {
+      this.audioPlayer.nativeElement.play().catch(() => {
+        this.isMusicPlaying = false; // Handle autoplay failure
+      });
+    }
+    this.isMusicPlaying = !this.isMusicPlaying;
+  }
 
   productoForm: FormGroup;
   variacionForm: FormGroup;
