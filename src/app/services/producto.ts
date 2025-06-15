@@ -9,13 +9,13 @@ import { ProductoRequest } from '../models/productorequest.interface'; // Asegú
 })
 export class ProductoService {
   
-  private apiUrl = 'https://tent-california-consumer-and.trycloudflare.com/api/v1/productos'; // Cambia por la URL de tu API
+  private apiUrl = 'https://dim-personalized-enormous-wiley.trycloudflare.com/api/v1'; // Cambia por la URL de tu API
 
   constructor(private http: HttpClient) { }
 
   // Obtener todos los productos
   getProductos(): Observable<Producto[]> {
-    return this.http.get<Producto[]>(this.apiUrl);
+    return this.http.get<Producto[]>(this.apiUrl + '/productos');
   }
 
   // Obtener un producto por ID
@@ -25,7 +25,7 @@ export class ProductoService {
 
   // Crear un nuevo producto
   crearProducto(producto: ProductoRequest): Observable<Producto> {
-    return this.http.post<Producto>(this.apiUrl, producto);
+    return this.http.post<Producto>(this.apiUrl + "/admin/productos/crear", producto);
   }
 
   // Actualizar un producto

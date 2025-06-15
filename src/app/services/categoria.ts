@@ -10,11 +10,11 @@ import { inject } from '@angular/core';
 export class CategoriaService {
 
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = 'https://leu-arrested-deputy-ins.trycloudflare.com/api/v1/categorias'; // Cambia por la URL de tu API
+  private readonly apiUrl = 'https://dim-personalized-enormous-wiley.trycloudflare.com/api/v1/admin'; // Cambia por la URL de tu API
 
   // Obtener todas las categorías
   getCategorias(): Observable<Categoria[]> {
-    return this.http.get<Categoria[]>(this.apiUrl);
+    return this.http.get<Categoria[]>(this.apiUrl + '/categorias');
   }
 
   // Obtener una categoría por ID
@@ -24,17 +24,17 @@ export class CategoriaService {
 
   // Crear una nueva categoría
   crearCategoria(categoria: Categoria): Observable<Categoria> {
-    return this.http.post<Categoria>(this.apiUrl + '/registrar', categoria);
+    return this.http.post<Categoria>(this.apiUrl + '/categorias/registrar', categoria);
   }
 
   // Actualizar una categoría
   actualizarCategoria(id: number, categoria: Categoria): Observable<Categoria> {
-    return this.http.put<Categoria>(`${this.apiUrl}/${id}`, categoria);
+    return this.http.put<Categoria>(`${this.apiUrl}/categorias/${id}`, categoria);
   }
 
   // Eliminar una categoría
   eliminarCategoria(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/categorias/${id}`);
   }
 
 }

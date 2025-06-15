@@ -10,11 +10,11 @@ import { inject } from '@angular/core';
 export class ProveedorService {
 
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = 'https://leu-arrested-deputy-ins.trycloudflare.com/api/v1/proveedores'; // Cambia por la URL de tu API
+  private readonly apiUrl = 'https://dim-personalized-enormous-wiley.trycloudflare.com/api/v1/admin'; // Cambia por la URL de tu API
 
   // Obtener todos los proveedores
   getProveedores(): Observable<Proveedor[]> {
-    return this.http.get<Proveedor[]>(this.apiUrl);
+    return this.http.get<Proveedor[]>(this.apiUrl + '/proveedores');
   }
 
   // Obtener un proveedor por ID
@@ -24,16 +24,16 @@ export class ProveedorService {
 
   // Crear un nuevo proveedor
   crearProveedor(proveedor: Proveedor): Observable<Proveedor> {
-    return this.http.post<Proveedor>(this.apiUrl + '/registrar', proveedor);
+    return this.http.post<Proveedor>(this.apiUrl + '/proveedores/registrar', proveedor);
   }
 
   // Actualizar un proveedor
   actualizarProveedor(id: number, proveedor: Proveedor): Observable<Proveedor> {
-    return this.http.put<Proveedor>(`${this.apiUrl}/${id}`, proveedor);
+    return this.http.put<Proveedor>(`${this.apiUrl}/proveedores/${id}`, proveedor);
   }
 
   // Eliminar un proveedor
   eliminarProveedor(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/proveedores/${id}`);
   }
 }
