@@ -1,0 +1,71 @@
+<div class="container py-5">
+  <h2 class="mb-4 text-center fw-bold">Detalles de la compra</h2>
+
+  @if (productosCarrito.length === 0) {
+    <div class="alert alert-info text-center" role="alert">
+      <i class="bi bi-cart-x me-2"></i>Tu carrito está vacío. ¡Explora nuestros productos!
+    </div>
+  }
+
+  @if (productosCarrito.length > 0) {
+    <div class="row g-4">
+      <!-- Product List -->
+      <div class="col-lg-8">
+        <div class="card shadow-sm">
+          <div class="card-body p-0">
+            <div class="list-group list-group-flush">
+            @for (producto of productosCarrito; track producto.idProducto) {
+            <div class="list-group-item d-flex flex-column flex-md-row align-items-md-center gap-3 py-3">
+                <img [src]="producto.imagenUrlPrincipal" alt="{{ producto.nombreProducto }}"
+                    class="rounded" style="width: 80px; height: 80px; object-fit: cover;">
+                <div class="flex-grow-1">
+                <h5 class="mb-1">{{ producto.nombreProducto }}</h5>
+                <small class="text-muted">{{ producto.descripcionProducto }}</small>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                <div class="input-group input-group-sm" style="width: 120px;">
+                    <button class="btn btn-outline-secondary" (click)="actualizarCantidad(producto.idProducto, -1)" [disabled]="(producto.cantidad ?? 1) <= 1">-</button>
+                    <input type="number" class="form-control text-center" [(ngModel)]="producto.cantidad" (ngModelChange)="actualizarCantidad(producto.idProducto, 0)" min="1" style="width: 50px;">
+                    <button class="btn btn-outline-secondary" (click)="actualizarCantidad(producto.idProducto, 1)">+</button>
+                </div>
+                <span class="text-primary fw-bold">${{ (producto.precioBase * (producto.cantidad ?? 1)).toFixed(2) }}</span>
+                </div>
+                <button class="btn btn-sm btn-outline-danger" (click)="eliminar(producto.idProducto)">
+                <i class="bi bi-trash"></i> Eliminar
+                </button>
+            </div>
+            }
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Summary Section -->
+      <div class="col-lg-4">
+        <div class="card shadow-sm sticky-top" style="top: 20px;">
+          <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Resumen de Compra</h5>
+          </div>
+          <div class="card-body">
+            <ul class="list-group list-group-flush mb-3">
+              <li class="list-group-item d-flex justify-content-between">
+                <span>Total de productos</span>
+                <span>{{ productosCarrito.length }}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between fw-bold">
+                <span>Total a pagar</span>
+                <span>{{ totalPrecio | currency:'USD':'symbol' }}</span>
+              </li>
+            </ul>
+            <button class="btn btn-success w-100 mb-2" (click)="finalizarCompra()" [disabled]="!productosCarrito.length">
+              <i class="bi bi-cart-check me-2"></i>Finalizar Compra
+            </button>
+            <button class="btn btn-outline-secondary w-100" (click)="vaciarCarrito()">
+              <i class="bi bi-cart-x me-2"></i>Vaciar Carrito
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>

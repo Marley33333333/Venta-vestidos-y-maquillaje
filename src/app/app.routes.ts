@@ -4,6 +4,7 @@ import { CategoriaCreacion } from './components/categoria-creacion/categoria-cre
 import { ProveedorCreacion } from './components/proveedor-creacion/proveedor-creacion';
 import { ProductoCreacion } from './components/producto-creacion/producto-creacion';
 import { Home } from './components/pages/home/home';
+import { CarritoComponent } from './components/carrito/carrito';
 
 export const routes: Routes = [
   { path: 'home', component: Home },
@@ -12,5 +13,6 @@ export const routes: Routes = [
   { path: 'productos/:id', component: ProductoListaComponent }, // Ruta para ver un producto específico
   { path: 'categorias', component: CategoriaCreacion }, // Ruta para ver todas las categorías
   { path: 'proveedores', component: ProveedorCreacion }, // Ruta para ver todas los proveedores
+  { path: 'carrito', component: CarritoComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full' } // Wildcard route para páginas no encontradas
 ];

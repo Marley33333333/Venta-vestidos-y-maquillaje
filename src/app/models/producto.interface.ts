@@ -32,4 +32,5 @@ export interface Producto {
   variaciones: Variacion[];
   fechaCreacion: string;
   fechaActualizacion: string;
+  cantidad?: number; // Optional field for cart management
 }

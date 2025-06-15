@@ -1,14 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterLink, RouterLinkActive, RouterModule  } from '@angular/router';
+import { ProductoService } from '../../../services/producto';
+import { CarritoService } from '../../../services/carrito';
+import { Producto, Categoria } from '../../../models/producto.interface';
+
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, RouterLink, RouterLinkActive],
+  imports: [CommonModule, RouterLink, RouterLinkActive, RouterModule],
   templateUrl: './home.html',
   styleUrl: './home.css'
 })
-export class Home {
+export class Home implements OnInit{
  // Datos del carrusel
   slides = [
     {
@@ -28,20 +32,31 @@ export class Home {
     }
   ];
 
-  // Datos de los productos
-  products = [
-    { id: 1, name: 'Vestido Floral', price: 45.99, image: 'https://i.ibb.co/BHkQSf0G/Whats-App-Image-2025-05-31-at-23-11-19-2.jpg', alt: 'Vestido floral' },
-    { id: 2, name: 'Labial Mate', price: 12.99, image: 'https://i.ibb.co/TxLSyXdc/17195954-0-product-515-Wx772-H.jpg', alt: 'Labial mate' },
-    { id: 3, name: 'Vestido Elegante', price: 59.99, image: 'https://i.ibb.co/84QGMQrR/Gemini-Generated-Image-bmnsn4bmnsn4bmns.png', alt: 'Vestido elegante' },
-    { id: 4, name: 'Paleta de Sombras', price: 24.99, image: 'https://i.ibb.co/x8Lj9QkR/Whats-App-Image-2025-05-31-at-23-11-19.jpg', alt: 'Paleta de sombras' }
-  ];
-
+  
   currentSlide = 0;
   isMenuOpen = false;
   private slideInterval: any;
 
+  private readonly productoService = inject(ProductoService);
+  
+  productos: Producto[] = [];
+  loading = false;
+  error: string | null = null;
+  cantidadProductos: number = 0;
+  productosFiltrados: Producto[] = [];
+  categorias: Categoria[] = []; 
+  showAboutUs = false;
+  categoryFilter: string | null = null;
+  categoriasUnicas: Categoria[] = [];
+
+  constructor(private carritoService: CarritoService) {}
+
   ngOnInit() {
     this.startSlideShow();
+    this.cargarProductos();
+    this.carritoService.carrito$.subscribe((productos: Producto[]) => {
+    this.cantidadProductos = productos.length;
+  });
   }
 
   ngOnDestroy() {
@@ -70,6 +85,71 @@ export class Home {
 
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  filteredProducts(categoria: Categoria) {
+    this.productosFiltrados = this.productos.filter((p: Producto) => p.categoria.idCategoria === categoria.idCategoria);
+  }
+
+  filterByCategory(category: string | null): void {
+    this.categoryFilter = category;
+
+    if (!category) {
+      // Si no hay filtro, mostramos todos
+      this.productosFiltrados = this.productos;
+    } else {
+      // Filtramos por nombre de categoría
+      this.productosFiltrados = this.productos.filter(
+        (p) => p.categoria.nombreCategoria === category
+      );
+    }
+
+    window.scrollTo({ top: 500, behavior: 'smooth' });
+  }
+
+  agregarAlCarrito(producto: Producto) {
+    this.carritoService.agregarProducto(producto);
+  }
+
+  cargarProductos(): void {
+    this.loading = true;
+    this.error = null;
+    
+    this.productoService.getProductos().subscribe({
+      next: (productos) => {
+        this.productos = productos;
+        this.productosFiltrados = productos; // <- Aquí actualizamos productosFiltrados
+        this.loading = false;
+        this.categoriasUnicas = this.getCategoriasUnicas;
+      },
+      error: (error) => {
+        this.error = 'Error al cargar los productos';
+        this.loading = false;
+        console.error('Error:', error);
+      }
+    });
+  }
+
+  get getCategoriasUnicas(): Categoria[] {
+    return this.productos.reduce((categorias: Categoria[], producto: Producto) => {
+      if (!categorias.some(c => c.idCategoria === producto.categoria.idCategoria)) {
+        categorias.push(producto.categoria);
+      }
+      return categorias;
+    }, []);
+  }
+  
+  calcularPrecioConVariacion(producto: Producto, variacion: any): number {
+    return producto.precioBase + variacion.precioAdicional;
+  }
+  
+  onImageError(event: any): void {
+    event.target.src = 'assets/images/placeholder-product.jpg';
+  }
+
+  toggleAboutUs(): void {
+    this.showAboutUs = !this.showAboutUs;
+    window.scrollTo({ top: 500, behavior: 'smooth' });
   }
 
 }

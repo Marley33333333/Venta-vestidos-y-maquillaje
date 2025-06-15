@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { Home } from './components/pages/home/home';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 
 
 @Component({
@@ -13,9 +12,9 @@ import { Home } from './components/pages/home/home';
     RouterOutlet,
     RouterLinkActive,
     CommonModule,
-    ReactiveFormsModule,
-    Home
+    ReactiveFormsModule
   ],
+  providers: [CurrencyPipe],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

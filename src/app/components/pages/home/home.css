@@ -41,3 +41,21 @@
 .transition-shadow {
   transition: box-shadow 0.3s;
 }
+
+.nav-link.active {
+  color: #e83e8c !important; /* Pink color matching your "Añadir al Carrito" button */
+  font-weight: bold;
+  position: relative;
+}
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #e83e8c; /* Pink underline */
+}
+.navbar-nav .nav-link {
+  transition: color 0.3s ease; /* Smooth color transition */
+}
