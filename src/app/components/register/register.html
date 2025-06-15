@@ -1,0 +1,106 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+      <div class="card shadow-sm border-0">
+        <div class="card-body">
+          <h2 class="text-center fw-bold mb-4">Registrarse</h2>
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <!-- Username -->
+            <div class="mb-3">
+              <label for="username" class="form-label">Nombre de Usuario</label>
+              <input type="text" id="username" formControlName="username" class="form-control"
+                     [class.is-invalid]="username?.touched && username?.invalid" placeholder="tu_usuario">
+              @if (username?.touched && username?.errors) {
+                <div class="invalid-feedback">
+                  @if (username?.errors?.['required']) {
+                    El nombre de usuario es requerido.
+                  } @else if (username?.errors?.['minlength']) {
+                    Mínimo 3 caracteres.
+                  } @else if (username?.errors?.['maxlength']) {
+                    Máximo 50 caracteres.
+                  }
+                </div>
+              }
+            </div>
+
+            <!-- Email -->
+            <div class="mb-3">
+              <label for="email" class="form-label">Correo Electrónico</label>
+              <input type="email" id="email" formControlName="email" class="form-control"
+                     [class.is-invalid]="email?.touched && email?.invalid" placeholder="tu@correo.com">
+              @if (email?.touched && email?.errors) {
+                <div class="invalid-feedback">
+                  @if (email?.errors?.['required']) {
+                    El correo es requerido.
+                  } @else if (email?.errors?.['email']) {
+                    Ingresa un correo válido.
+                  }
+                </div>
+              }
+            </div>
+
+            <!-- Password -->
+            <div class="mb-3">
+              <label for="password" class="form-label">Contraseña</label>
+              <input type="password" id="password" formControlName="password" class="form-control"
+                     [class.is-invalid]="password?.touched && password?.invalid" placeholder="******">
+              @if (password?.touched && password?.errors) {
+                <div class="invalid-feedback">
+                  @if (password?.errors?.['required']) {
+                    La contraseña es requerida.
+                  } @else if (password?.errors?.['minlength']) {
+                    La contraseña debe tener al menos 6 caracteres.
+                  }
+                </div>
+              }
+            </div>
+
+            <!-- First Name -->
+            <div class="mb-3">
+              <label for="firstName" class="form-label">Nombre</label>
+              <input type="text" id="firstName" formControlName="firstName" class="form-control"
+                     [class.is-invalid]="firstName?.touched && firstName?.invalid" placeholder="Tu nombre">
+              @if (firstName?.touched && firstName?.errors?.['maxlength']) {
+                <div class="invalid-feedback">
+                  Máximo 50 caracteres.
+                </div>
+              }
+            </div>
+
+            <!-- Last Name -->
+            <div class="mb-3">
+              <label for="lastName" class="form-label">Apellido</label>
+              <input type="text" id="lastName" formControlName="lastName" class="form-control"
+                     [class.is-invalid]="lastName?.touched && lastName?.invalid" placeholder="Tu apellido">
+              @if (lastName?.touched && lastName?.errors?.['maxlength']) {
+                <div class="invalid-feedback">
+                  Máximo 50 caracteres.
+                </div>
+              }
+            </div>
+
+            <!-- Error Message -->
+            @if (error) {
+              <div class="alert alert-danger alert-sm mb-3">{{ error }}</div>
+            }
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary w-100" [disabled]="isSubmitting || registerForm.invalid">
+              @if (isSubmitting) {
+                <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                Registrando...
+              } @else {
+                Registrarse
+              }
+            </button>
+          </form>
+
+          <!-- Links -->
+          <div class="text-center mt-3">
+            <p class="mb-0">¿Ya tienes una cuenta? <a routerLink="/login" class="text-primary">Inicia Sesión</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

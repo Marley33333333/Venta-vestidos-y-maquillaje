@@ -26,12 +26,23 @@
         <li class="nav-item">
           <a class="nav-link" href="javascript:void(0)" (click)="toggleAboutUs()">Sobre Nosotros</a>
         </li>
-        <li class="nav-item me-2">
-          <a class="btn btn-outline-primary btn-sm" routerLink="/login">Iniciar Sesión</a>
-        </li>
-        <li class="nav-item">
-          <a class="btn btn-primary btn-sm" routerLink="/register">Registrarse</a>
-        </li>
+        @if (authService.getRole() === 'admin') {
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/admin" routerLinkActive="active">Admin Dashboard</a>
+          </li>
+        }
+        @if (authService.isLoggedIn()) {
+          <li class="nav-item me-2">
+            <a class="btn btn-outline-danger btn-sm" (click)="authService.logout()">Cerrar Sesión</a>
+          </li>
+        } @else {
+          <li class="nav-item me-2">
+            <a class="btn btn-outline-primary btn-sm" routerLink="/login">Iniciar Sesión</a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-primary btn-sm" routerLink="/register">Registrarse</a>
+          </li>
+        }
         <li class="nav-item ms-2">
           <a class="nav-link position-relative" routerLink="/carrito" routerLinkActive="active">
             <i class="bi bi-cart fs-5"></i>

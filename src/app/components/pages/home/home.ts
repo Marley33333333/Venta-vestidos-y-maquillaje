@@ -4,7 +4,7 @@ import { RouterLink, RouterLinkActive, RouterModule  } from '@angular/router';
 import { ProductoService } from '../../../services/producto';
 import { CarritoService } from '../../../services/carrito';
 import { Producto, Categoria } from '../../../models/producto.interface';
-
+import { AuthService } from '../../../services/auth';
 
 @Component({
   selector: 'app-home',
@@ -49,7 +49,7 @@ export class Home implements OnInit{
   categoryFilter: string | null = null;
   categoriasUnicas: Categoria[] = [];
 
-  constructor(private carritoService: CarritoService) {}
+  constructor(private carritoService: CarritoService, public authService: AuthService) {}
 
   ngOnInit() {
     this.startSlideShow();

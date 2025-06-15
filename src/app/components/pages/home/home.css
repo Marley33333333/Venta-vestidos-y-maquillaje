@@ -43,7 +43,7 @@
 }
 
 .nav-link.active {
-  color: #e83e8c !important; /* Pink color matching your "Añadir al Carrito" button */
+  color: #e83e8c !important;
   font-weight: bold;
   position: relative;
 }
@@ -54,8 +54,8 @@
   left: 0;
   width: 100%;
   height: 2px;
-  background-color: #e83e8c; /* Pink underline */
+  background-color: #e83e8c;
 }
 .navbar-nav .nav-link {
-  transition: color 0.3s ease; /* Smooth color transition */
+  transition: color 0.3s ease;
 }

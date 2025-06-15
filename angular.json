@@ -5,7 +5,15 @@
   "projects": {
     "clothes-client": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+       "@schematics/angular:component": {
+          "style": "scss",
+          "standalone": true
+        },
+        "@schematics/angular:class": {
+          "skipTests": false
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
