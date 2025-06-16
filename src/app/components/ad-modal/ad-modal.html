@@ -4,6 +4,8 @@
 
     <!-- Contenido del anuncio -->
     <div class="ad-content">
+      <h2 class="ad-title">{{ currentAd.title }}</h2>
+
       <div *ngIf="currentAd.type === 'image' && currentAd.contentUrl">
         <img [src]="currentAd.contentUrl" alt="Anuncio" />
       </div>

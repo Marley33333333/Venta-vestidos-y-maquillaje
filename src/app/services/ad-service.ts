@@ -6,6 +6,7 @@ export interface Ad {
   type: 'image' | 'video' | 'text';
   contentUrl?: string; // URL de imagen o video
   message?: string;
+  title?: string; // Título opcional para anuncios de imagen
 }
 
 @Injectable({
@@ -17,22 +18,26 @@ export class AdService {
     {
       id: 1,
       type: 'image',
-      contentUrl: 'assets/welcome.jpeg' // Ruta a la imagen local
+      contentUrl: 'assets/welcome.jpeg', // Ruta a la imagen local
+      title: "Bienvenido a Lumina Beauty"
     },
     {
       id: 2,
       type: 'video',
-      contentUrl: 'assets/advideo.mp4' // Ruta al video local
+      contentUrl: 'assets/advideo.mp4', // Ruta al video local
+      title: "Nuestos productos"
     },
     {
       id: 3,
       type: 'image',
-      contentUrl: 'assets/logo.jpeg' // Ruta a la imagen local
+      contentUrl: 'assets/logo.jpeg', // Ruta a la imagen local
+      title: "Una historia de belleza"
     },
     {
       id: 4,
       type: 'text',
-      message: '¡Bienvenido a Lumina Beauty! Descuentos exclusivos por tiempo limitado.'
+      message: '¡Bienvenido a Lumina Beauty! Descuentos exclusivos por tiempo limitado.',
+      title: "Eres parte de nuestra historia"
     }
   ];
 
