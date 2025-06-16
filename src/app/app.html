@@ -1,7 +1,7 @@
 <div class="container-fluid min-vh-100 d-flex flex-column bg-light">
   <header class="bg-white shadow-sm py-3 mb-4">
     <div class="container d-flex flex-column flex-md-row align-items-center justify-content-between">
-      <h1 class="h3 mb-2 mb-md-0 text-primary fw-bold">Lumina Beauty</h1>
+      <h1 class="h3 mb-2 mb-md-0 text-primary fw-bold" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Lumina Beauty</h1>
       <nav>
         <a routerLink="/productos" routerLinkActive="active"
            class="nav-link d-inline-block px-2 text-secondary fw-medium">Productos</a>
@@ -18,6 +18,7 @@
 
   <main class="flex-grow-1">
     <div class="container py-4">
+      <app-ad-modal></app-ad-modal>
       <router-outlet></router-outlet>
     </div>
   </main>

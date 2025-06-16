@@ -1,0 +1,10 @@
+<!-- ad-modal.component.html -->
+<div *ngIf="showModal" class="modal-overlay">
+  <div class="modal-content">
+    <span (click)="closeAd()">X</span>
+    <h2>Anuncio Informativo</h2>
+    <!-- <img src="https://example.com/imagen-publicitaria.jpg"  alt="Anuncio" /> -->
+    <!-- O puedes insertar un iframe de video -->
+    <iframe width="560" height="315" src="assets/advideo.mp4"></iframe> 
+  </div>
+</div>

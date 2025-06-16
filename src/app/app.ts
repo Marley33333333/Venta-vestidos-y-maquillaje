@@ -3,7 +3,8 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-
+import { AdModal } from './components/ad-modal/ad-modal';
+import { AdService } from './services/ad-service';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,8 @@ import { ViewChild, ElementRef, AfterViewInit } from '@angular/core';
     RouterOutlet,
     RouterLinkActive,
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AdModal
   ],
   providers: [CurrencyPipe],
   templateUrl: './app.html',
@@ -31,7 +33,7 @@ export class AppComponent implements AfterViewInit{
       this.isMusicPlaying = false;
     });
   }
-  
+
   toggleMusic() {
     if (this.isMusicPlaying) {
       this.audioPlayer.nativeElement.pause();
@@ -53,7 +55,10 @@ export class AppComponent implements AfterViewInit{
   tallas: string[] = ['S', 'M', 'L'];
   colores: string[] = ['Rojo', 'Azul', 'Verde'];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private adService: AdService) {
+
+    this.adService.startTimer(5000);
+    
     this.productoForm = this.fb.group({
       nombreProducto: ['', Validators.required],
       precioBase: [0, [Validators.required, Validators.min(0)]],
