@@ -15,7 +15,7 @@ export class AdService {
      this.startTimer();
   }
 
-  startTimer(delay: number = 10000) { // por defecto cada 10 segundos
+  startTimer(delay: number = 50000) { // por defecto cada 10 segundos
     this.clearTimer(); // Limpiar si ya existe
     this.timer = setTimeout(() => {
       this.showAdSubject.next();
