@@ -1,10 +1,32 @@
-<!-- ad-modal.component.html -->
 <div *ngIf="showModal" class="modal-overlay">
   <div class="modal-content">
-    <span (click)="closeAd()">X</span>
-    <h2>Anuncio Informativo</h2>
-    <!-- <img src="https://example.com/imagen-publicitaria.jpg"  alt="Anuncio" /> -->
-    <!-- O puedes insertar un iframe de video -->
-    <iframe width="560" height="315" src="assets/advideo.mp4"></iframe> 
+    <span class="modal-close" (click)="closeAd()">X</span>
+
+    <!-- Contenido del anuncio -->
+    <div class="ad-content">
+      <div *ngIf="currentAd.type === 'image' && currentAd.contentUrl">
+        <img [src]="currentAd.contentUrl" alt="Anuncio" />
+      </div>
+
+      <div *ngIf="currentAd.type === 'video' && currentAd.contentUrl">
+        <iframe [src]="safeVideoUrl" width="100%" height="300" frameborder="0" allowfullscreen></iframe>
+      </div>
+
+      <div *ngIf="currentAd.type === 'text' && currentAd.message">
+        <p>{{ currentAd.message }}</p>
+      </div>
+    </div>
+
+    <!-- Botón opcional si se quiere interacción -->
+    <button class="btn btn-secondary mt-3" (click)="closeAd()">Cerrar</button>
+  </div>
+</div>
+
+<!-- Opciones después de cerrar -->
+<div *ngIf="showOptions" class="options-overlay">
+  <div class="options-box">
+    <p>¿Deseas ajustar los anuncios?</p>
+    <button class="btn btn-sm btn-danger me-2" (click)="closeAd('disable')">Desactivar</button>
+    <button class="btn btn-sm btn-info" (click)="closeAd('prolong')">Prolongar</button>
   </div>
 </div>

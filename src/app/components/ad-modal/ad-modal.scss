@@ -1,8 +1,7 @@
-/* ad-modal.component.css */
 .modal-overlay {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,15 +11,36 @@
 .modal-content {
   background: white;
   padding: 20px;
-  position: relative;
+  border-radius: 8px;
   max-width: 600px;
   text-align: center;
+  position: relative;
 }
 
-.modal-content span {
+.modal-close {
   position: absolute;
   top: 10px;
   right: 10px;
-  cursor: pointer;
   font-weight: bold;
+  cursor: pointer;
+}
+
+.options-overlay {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 10px 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  z-index: 9999;
+  animation: fadeInOut 5s ease forwards;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(20px); }
+  10% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(20px); }
 }

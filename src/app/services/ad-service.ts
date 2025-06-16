@@ -1,24 +1,62 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
+export interface Ad {
+  id: number;
+  type: 'image' | 'video' | 'text';
+  contentUrl?: string; // URL de imagen o video
+  message?: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class AdService {
 
-  private showAdSubject = new Subject<void>();
+  private ads: Ad[] = [
+    {
+      id: 1,
+      type: 'image',
+      contentUrl: 'assets/welcome.jpeg' // Ruta a la imagen local
+    },
+    {
+      id: 2,
+      type: 'video',
+      contentUrl: 'assets/advideo.mp4' // Ruta al video local
+    },
+    {
+      id: 3,
+      type: 'image',
+      contentUrl: 'assets/logo.jpeg' // Ruta a la imagen local
+    },
+    {
+      id: 4,
+      type: 'text',
+      message: '¡Bienvenido a Lumina Beauty! Descuentos exclusivos por tiempo limitado.'
+    }
+  ];
+
+
+  private showAdSubject = new Subject<Ad>();
   public showAd$ = this.showAdSubject.asObservable();
   
   private timer: any;
+  private disabled = false;
+  private delay = 60000;
   
   constructor() {
      this.startTimer();
   }
 
-  startTimer(delay: number = 50000) { // por defecto cada 10 segundos
+  startTimer(delay = this.delay) { 
+    if (this.disabled) return; // No iniciar si está deshabilitado
+
     this.clearTimer(); // Limpiar si ya existe
+
+    const randomAd = this.ads[Math.floor(Math.random() * this.ads.length)];
+
     this.timer = setTimeout(() => {
-      this.showAdSubject.next();
+      this.showAdSubject.next(randomAd);
     }, delay);
   }
 
@@ -27,5 +65,20 @@ export class AdService {
       clearTimeout(this.timer);
     }
   }  
+
+  disableAds() {
+    this.disabled = true;
+    this.clearTimer();
+  }
+
+  enableAds(delay = this.delay) {
+    this.disabled = false;
+    this.delay = delay;
+    this.startTimer(delay);
+  }
+
+  prolongAds(delay = 20000) {
+    this.startTimer(delay);
+  }
 
 }
