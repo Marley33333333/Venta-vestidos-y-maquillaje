@@ -34,6 +34,13 @@ export class AppComponent implements AfterViewInit{
     });
   }
 
+  scrollToSection(sectionId: string) {
+    const el = document.getElementById(sectionId);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
   toggleMusic() {
     if (this.isMusicPlaying) {
       this.audioPlayer.nativeElement.pause();

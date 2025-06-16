@@ -7,21 +7,40 @@
            class="nav-link d-inline-block px-2 text-secondary fw-medium">Productos</a>
       </nav>
     </div>
-    <!-- Music Toggle Button and Audio Player -->
-    <div class="position-fixed bottom-0 end-0 m-4 z-3">
-      <button class="btn btn-primary rounded-circle shadow" (click)="toggleMusic()" [attr.aria-pressed]="isMusicPlaying">
-        <i class="bi" [ngClass]="isMusicPlaying ? 'bi-pause-fill' : 'bi-play-fill'"></i>
-      </button>
-      <audio #audioPlayer src="assets/audio.mp3" autoplay loop></audio>
-    </div>    
   </header>
 
+ 
+
+  <!-- Banner Section (just below the header) -->
+  <section class="bg-primary text-white py-4">
+    <div class="container text-center">
+      <h2 class="display-6 fw-bold mb-2">¡Bienvenido a Lumina Beauty!</h2>
+      <p class="lead mb-0">Descubre las mejores tendencias en moda y productos de belleza. Envíos rápidos y atención personalizada.</p>
+      <img src="assets/promo.jpeg" class="img-fluid mt-3" alt="Banner de Lumina Beauty">
+    </div>
+  </section>
+  <section id="destino"></section>
   <main class="flex-grow-1">
     <div class="container py-4">
       <app-ad-modal></app-ad-modal>
       <router-outlet></router-outlet>
     </div>
   </main>
+
+      <!-- Music Toggle Button and Audio Player -->
+    <div class="position-fixed bottom-0 end-0 m-4 z-3">
+        <button class="btn btn-secondary rounded-circle shadow mb-2"
+          style="width: 48px; height: 48px;"
+          (click)="scrollToSection('destino')"
+          aria-label="Deslizar hacia abajo">
+        <i class="bi bi-arrow-down fs-4"></i>
+      </button>
+
+      <button class="btn btn-primary rounded-circle shadow" (click)="toggleMusic()" [attr.aria-pressed]="isMusicPlaying">
+        <i class="bi" [ngClass]="isMusicPlaying ? 'bi-pause-fill' : 'bi-play-fill'"></i>
+      </button>
+      <audio #audioPlayer src="assets/audio.mp3" autoplay loop></audio>
+    </div>   
 
   <footer class="bg-white border-top py-3 mt-auto">
     <div class="container text-center text-muted small">
