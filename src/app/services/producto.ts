@@ -9,7 +9,7 @@ import { ProductoRequest } from '../models/productorequest.interface'; // Asegú
 })
 export class ProductoService {
   
-  private apiUrl = 'https://dim-personalized-enormous-wiley.trycloudflare.com/api/v1'; // Cambia por la URL de tu API
+  private apiUrl = 'https://labour-brother-succeed-suppliers.trycloudflare.com/api/v1'; // Cambia por la URL de tu API
 
   constructor(private http: HttpClient) { }
 

@@ -10,7 +10,7 @@ import { inject } from '@angular/core';
 export class ProveedorService {
 
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = 'https://dim-personalized-enormous-wiley.trycloudflare.com/api/v1/admin'; // Cambia por la URL de tu API
+  private readonly apiUrl = 'https://labour-brother-succeed-suppliers.trycloudflare.com/api/v1/admin'; // Cambia por la URL de tu API
 
   // Obtener todos los proveedores
   getProveedores(): Observable<Proveedor[]> {
