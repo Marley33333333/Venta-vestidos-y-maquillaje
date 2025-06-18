@@ -9,7 +9,7 @@ import { tap } from 'rxjs/operators';
 })
 export class AuthService {
 
-  private apiUrl = 'https://labour-brother-succeed-suppliers.trycloudflare.com/api/v1';
+  private apiUrl = 'https://polls-served-neighbors-disagree.trycloudflare.com/api/v1';
   private userSubject = new BehaviorSubject<User | null>(null);
   user$ = this.userSubject.asObservable();
 
